@@ -23,12 +23,16 @@ module Refinery
         end
 
         def new
-          @item = Item.new(:gallery_id => find_gallery)
+          if params[:gallery_id].present?
+            @item = Item.new(:gallery_id => find_gallery.id )
+          else
+            @item = Item.new
+          end
         end
 
         private
         def find_gallery
-          @gallery = Gallery.find(params[:gallery_id]) if params[:gallery_id]
+          @gallery = Gallery.find(params[:gallery_id])
         end
 
       end
