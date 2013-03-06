@@ -14,7 +14,7 @@ module Refinery
           else
             @gallery = ::Refinery::Portfolio::Gallery.new
           end
-
+          3.times {@gallery.items.build}
         end
 
         def children

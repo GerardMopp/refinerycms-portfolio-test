@@ -41,6 +41,14 @@
     <%= f.select :parent_id, nested_set_options(::Refinery::Portfolio::Gallery, @gallery) {|i| "#{'-' * i.level} #{i.title}" }, :include_blank => true %>
   </div>
 
+
+
+<%= f.fields_for :items do |builder| %>
+  <%= render 'item_fields', :f => builder %>
+<% end %>
+<%= link_to_add_fields "Add Item", f, :items %>
+
+
   <%= render :partial => "/refinery/admin/form_actions",
               :locals => {
                 :f => f,
@@ -53,6 +61,19 @@
   <script>
     $(document).ready(function(){
       page_options.init(false, '', '');
+       $('.items_form .remove_fields').click(function(){
+          $(this).prevAll('input[type=hidden]').val('1');
+          $(this).parent('.items_form').hide();
+          return false 
+       });
+      
+      $('.add_fields').click(function(){
+         time = new Date().getTime();
+          regexp = new RegExp($(this).data('id'), 'g');
+         $(this).before($(this).data('fields').replace(regexp, time));
+          return false
+       });
+
     });
   </script>
 <% end %>

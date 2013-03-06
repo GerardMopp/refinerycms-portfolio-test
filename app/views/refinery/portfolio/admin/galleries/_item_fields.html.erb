@@ -1,0 +1,21 @@
+  
+<div class='items_form'>
+    <div class='field'>
+    	<%= f.label :title %>
+		<%= f.text_field :title %>
+    </div>
+    <div class='field'>
+    	<%= f.label :caption %>
+		<%= f.text_area :caption , :size => "30x10"%>
+    </div>
+  <%= render :partial => '/refinery/admin/image_picker',
+              :locals => {
+                :f => f,
+                :field => :image_id,
+                :image => f.object.image,
+                :toggle_image_display => false
+              } %>
+
+  <%= f.hidden_field :_destroy %> <br>
+  <%= link_to "remove", '#', class: "remove_fields" %> <br>
+</div>
